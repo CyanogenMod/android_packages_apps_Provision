@@ -34,6 +34,11 @@ public class DefaultActivity extends Activity {
         // Add a persistent setting to allow other apps to know the device has been provisioned.
         Settings.Global.putInt(getContentResolver(), Settings.Global.DEVICE_PROVISIONED, 1);
 
+        // Add a persistent setting to allow other apps to know the user has complete the
+        // setup wizard. This value is used by some components of the system (like QuickSettings
+        // or KeyguardSelector). This flag need to be set, before the provisioned bit was set.
+        Settings.Secure.putInt(getContentResolver(), Settings.Secure.USER_SETUP_COMPLETE, 1);
+
         // remove this activity from the package manager.
         PackageManager pm = getPackageManager();
         ComponentName name = new ComponentName(this, DefaultActivity.class);
